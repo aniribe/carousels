@@ -1,12 +1,30 @@
 import 'package:carousels/config/app_colors.dart';
+import 'package:carousels/config/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'components/card_scroll_widget.dart';
 
-class FirstCarouselView extends StatelessWidget {
+class FirstCarouselView extends StatefulWidget {
+  @override
+  _FirstCarouselViewState createState() => _FirstCarouselViewState();
+}
+
+class _FirstCarouselViewState extends State<FirstCarouselView> {
+  double? currentPage = firstCarouselImages.length - 1;
+//  double? currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
+    final PageController pageController =
+        PageController(initialPage: firstCarouselImages.length - 1);
+
+    pageController.addListener(() {
+      setState(() {
+        currentPage = pageController.page;
+      });
+    });
+
     return Scaffold(
       backgroundColor: AppColors.middleBlue,
       body: SafeArea(
@@ -31,7 +49,22 @@ class FirstCarouselView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              CardScrollWidget(),
+              Stack(
+                children: [
+                  CardScrollWidget(
+                    currentPage: currentPage,
+                    widgetAspectRatio: (12.0 / 16.0) * 1.2,
+                  ),
+                  Positioned.fill(
+                      child: PageView.builder(
+                          itemCount: firstCarouselImages.length,
+                          controller: pageController,
+                          reverse: true,
+                          itemBuilder: (context, index) {
+                            return Container();
+                          }))
+                ],
+              ),
             ],
           ),
         ),
