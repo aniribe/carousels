@@ -12,7 +12,6 @@ class FirstCarouselView extends StatefulWidget {
 
 class _FirstCarouselViewState extends State<FirstCarouselView> {
   double? currentPage = firstCarouselImages.length - 1;
-//  double? currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +38,7 @@ class _FirstCarouselViewState extends State<FirstCarouselView> {
                 ]),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 30),
               Padding(
@@ -63,6 +63,16 @@ class _FirstCarouselViewState extends State<FirstCarouselView> {
                           itemBuilder: (context, index) {
                             return Container();
                           }))
+                ],
+              ),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Next',
+                    style: TextStyle(fontSize: 35, color: AppColors.white),
+                  )
                 ],
               ),
             ],
